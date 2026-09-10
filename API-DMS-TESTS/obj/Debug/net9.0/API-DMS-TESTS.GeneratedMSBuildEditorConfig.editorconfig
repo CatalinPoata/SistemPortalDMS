@@ -1,0 +1,17 @@
+is_global = true
+build_property.MSBuildProjectFullPath = C:\Users\febr2\source\repos\SistemPortalDMS\API-DMS-TESTS\API-DMS-TESTS.csproj
+build_property.XunitTestProjectAOT = false
+build_property.TargetFramework = net9.0
+build_property.TargetPlatformMinVersion = 
+build_property.UsingMicrosoftNETSdkWeb = 
+build_property.ProjectTypeGuids = 
+build_property.InvariantGlobalization = 
+build_property.PlatformNeutralAssembly = 
+build_property.EnforceExtendedAnalyzerRules = 
+build_property._SupportedPlatformList = Linux,macOS,Windows
+build_property.RootNamespace = API_DMS_TESTS
+build_property.ProjectDir = C:\Users\febr2\source\repos\SistemPortalDMS\API-DMS-TESTS\
+build_property.EnableComHosting = 
+build_property.EnableGeneratedComInterfaceComImportInterop = 
+build_property.EffectiveAnalysisLevelStyle = 9.0
+build_property.EnableCodeStyleSeverity = 

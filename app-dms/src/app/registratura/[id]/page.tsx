@@ -1,0 +1,17 @@
+import { notFound } from "next/navigation";
+import RegistryDetailsPage from "@/components/registry-details-page";
+
+const guidPattern =
+  /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+
+export default async function Page({ params }: {
+  params: Promise<{ id: string }>;
+}) {
+  const { id } = await params;
+
+  if (!guidPattern.test(id)) {
+    notFound();
+  }
+
+  return <RegistryDetailsPage entryId={id} />;
+}

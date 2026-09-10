@@ -1,0 +1,16 @@
+{
+  "version": 2,
+  "dgSpecHash": "9zOauXVzjrA=",
+  "success": true,
+  "projectFilePath": "C:\\Users\\febr2\\source\\repos\\SistemPortalDMS\\Shared.Reporting\\Shared.Reporting.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\febr2\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\6.0.0\\microsoft.bcl.asyncinterfaces.6.0.0.nupkg.sha512",
+    "C:\\Users\\febr2\\.nuget\\packages\\microsoft.playwright\\1.62.0\\microsoft.playwright.1.62.0.nupkg.sha512",
+    "C:\\Users\\febr2\\.nuget\\packages\\microsoft.visualstudio.azure.containers.tools.targets\\1.24.1-preview.1\\microsoft.visualstudio.azure.containers.tools.targets.1.24.1-preview.1.nupkg.sha512",
+    "C:\\Users\\febr2\\.nuget\\packages\\system.componentmodel.annotations\\5.0.0\\system.componentmodel.annotations.5.0.0.nupkg.sha512",
+    "C:\\Users\\febr2\\.nuget\\packages\\system.runtime.compilerservices.unsafe\\6.0.0\\system.runtime.compilerservices.unsafe.6.0.0.nupkg.sha512",
+    "C:\\Users\\febr2\\.nuget\\packages\\system.text.encodings.web\\6.0.0\\system.text.encodings.web.6.0.0.nupkg.sha512",
+    "C:\\Users\\febr2\\.nuget\\packages\\system.text.json\\6.0.10\\system.text.json.6.0.10.nupkg.sha512"
+  ],
+  "logs": []
+}

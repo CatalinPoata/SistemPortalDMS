@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "API-PORTAL-TESTS": {
+      "commandName": "Project"
+    },
+    "Container (Dockerfile)": {
+      "commandName": "Docker"
+    }
+  }
+}

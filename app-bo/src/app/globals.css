@@ -1,0 +1,70 @@
+@import "tailwindcss";
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+  --font-system-sans: Arial, Helvetica, sans-serif;
+  --font-system-mono: "Courier New", monospace;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-system-sans);
+  --font-mono: var(--font-system-mono);
+}
+
+html,
+body {
+  min-height: 100%;
+  background: var(--background);
+}
+
+body {
+  color: var(--foreground);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+button {
+  cursor: pointer;
+  transition: background-color 150ms ease, border-color 150ms ease,
+    color 150ms ease, transform 150ms ease;
+}
+
+button:disabled {
+  cursor: not-allowed;
+}
+button:not([class*="bg-"]):not([class*="border-"]) {
+  border-radius: 0.5rem;
+  background: #1d4ed8;
+  color: white;
+  font-weight: 600;
+}
+
+button:not([class*="bg-"]):not([class*="border-"]):hover:not(:disabled) {
+  background: #1e40af;
+}
+.rich-text-editor-content {
+  color: #0f172a;
+  line-height: 1.6;
+}
+
+.rich-text-editor-content h2,
+.rich-text-editor-content h3 {
+  color: #0f172a;
+  font-weight: 700;
+  line-height: 1.25;
+}
+
+.rich-text-editor-content h2 { margin: 1.25rem 0 0.75rem; font-size: 1.5rem; }
+.rich-text-editor-content h3 { margin: 1rem 0 0.6rem; font-size: 1.25rem; }
+.rich-text-editor-content > :first-child { margin-top: 0; }
+.rich-text-editor-content > :last-child { margin-bottom: 0; }
+.rich-text-editor-content p { margin: 0 0 0.75rem; }
+.rich-text-editor-content ul { margin: 0 0 0.75rem; list-style: disc; padding-left: 1.5rem; }
+.rich-text-editor-content ol { margin: 0 0 0.75rem; list-style: decimal; padding-left: 1.5rem; }
+.rich-text-editor-content li { margin: 0.25rem 0; }
+.rich-text-editor-content blockquote { margin: 1rem 0; border-left: 4px solid #93c5fd; padding-left: 1rem; color: #475569; }
+.rich-text-editor-content a { color: #1d4ed8; text-decoration: underline; text-underline-offset: 2px; }
+.rich-text-editor-content strong { font-weight: 700; }
+.rich-text-editor-content em { font-style: italic; }

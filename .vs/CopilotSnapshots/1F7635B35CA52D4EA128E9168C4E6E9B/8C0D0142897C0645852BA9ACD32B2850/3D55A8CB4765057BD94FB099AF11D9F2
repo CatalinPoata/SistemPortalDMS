@@ -1,0 +1,12 @@
+﻿{
+  "Logging": {
+    "LogLevel": {
+      "Default": "Information",
+      "Microsoft.AspNetCore": "Warning"
+    }
+  },
+  "ConnectionStrings": {
+    "DmsDatabase": "Host=localhost;Port=5432;Database=portal_dms_db;Username=dms_app;Password=dms_app"
+  },
+  "AllowedHosts": "*"
+}

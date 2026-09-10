@@ -1,0 +1,271 @@
+﻿## SIGNATURES OF RELEVANT TYPES REFERENCED IN THE CODE:
+
+```csharp
+
+public sealed class WebApplicationBuilder : IHostApplicationBuilder
+{
+  public WebApplication Build();
+  public IWebHostEnvironment Environment { get; }
+  public IServiceCollection Services { get; }
+  public ConfigurationManager Configuration { get; }
+  public ILoggingBuilder Logging { get; }
+  public IMetricsBuilder Metrics { get; }
+  public ConfigureWebHostBuilder WebHost { get; }
+  public ConfigureHostBuilder Host { get; }
+  private sealed class WireSourcePipeline
+  {
+    public RequestDelegate CreateMiddleware(RequestDelegate next);
+  }
+}
+
+public interface IHostApplicationBuilder
+{
+  void ConfigureContainer<TContainerBuilder>(IServiceProviderFactory<TContainerBuilder> factory, [Action<TContainerBuilder>? configure = null]) where TContainerBuilder : notnull;
+  IConfigurationManager Configuration { get; }
+  IHostEnvironment Environment { get; }
+  ILoggingBuilder Logging { get; }
+  IMetricsBuilder Metrics { get; }
+  IDictionary<object, object> Properties { get; }
+  IServiceCollection Services { get; }
+}
+
+public interface IServiceCollection : IList<ServiceDescriptor>, ICollection<ServiceDescriptor>, IEnumerable<ServiceDescriptor>, IEnumerable
+{
+}
+
+public class ServiceDescriptor
+{
+  public static ServiceDescriptor Describe(Type serviceType, Func<IServiceProvider, object> implementationFactory, ServiceLifetime lifetime);
+  public static ServiceDescriptor Describe(Type serviceType, Type implementationType, ServiceLifetime lifetime);
+  public static ServiceDescriptor DescribeKeyed(Type serviceType, object? serviceKey, Func<IServiceProvider, object, object> implementationFactory, ServiceLifetime lifetime);
+  public static ServiceDescriptor DescribeKeyed(Type serviceType, object? serviceKey, Type implementationType, ServiceLifetime lifetime);
+  public static ServiceDescriptor KeyedScoped(Type service, object? serviceKey, Func<IServiceProvider, object, object> implementationFactory);
+  public static ServiceDescriptor KeyedScoped(Type service, object? serviceKey, Type implementationType);
+  public static ServiceDescriptor KeyedScoped<TService>(object? serviceKey, Func<IServiceProvider, object, TService> implementationFactory) where TService : class;
+  public static ServiceDescriptor KeyedScoped<TService, TImplementation>(object? serviceKey) where TService : class where TImplementation : class, TService;
+  public static ServiceDescriptor KeyedScoped<TService, TImplementation>(object? serviceKey, Func<IServiceProvider, object, TImplementation> implementationFactory) where TService : class where TImplementation : class, TService;
+  public static ServiceDescriptor KeyedSingleton(Type serviceType, object? serviceKey, Func<IServiceProvider, object, object> implementationFactory);
+  public static ServiceDescriptor KeyedSingleton(Type serviceType, object? serviceKey, object implementationInstance);
+  public static ServiceDescriptor KeyedSingleton(Type service, object? serviceKey, Type implementationType);
+  public static ServiceDescriptor KeyedSingleton<TService>(object? serviceKey, Func<IServiceProvider, object, TService> implementationFactory) where TService : class;
+  public static ServiceDescriptor KeyedSingleton<TService>(object? serviceKey, TService implementationInstance) where TService : class;
+  public static ServiceDescriptor KeyedSingleton<TService, TImplementation>(object? serviceKey) where TService : class where TImplementation : class, TService;
+  public static ServiceDescriptor KeyedSingleton<TService, TImplementation>(object? serviceKey, Func<IServiceProvider, object, TImplementation> implementationFactory) where TService : class where TImplementation : class, TService;
+  public static ServiceDescriptor KeyedTransient(Type service, object? serviceKey, Func<IServiceProvider, object, object> implementationFactory);
+  public static ServiceDescriptor KeyedTransient(Type service, object? serviceKey, Type implementationType);
+  public static ServiceDescriptor KeyedTransient<TService>(object? serviceKey, Func<IServiceProvider, object, TService> implementationFactory) where TService : class;
+  public static ServiceDescriptor KeyedTransient<TService, TImplementation>(object? serviceKey) where TService : class where TImplementation : class, TService;
+  public static ServiceDescriptor KeyedTransient<TService, TImplementation>(object? serviceKey, Func<IServiceProvider, object, TImplementation> implementationFactory) where TService : class where TImplementation : class, TService;
+  public static ServiceDescriptor Scoped(Type service, Func<IServiceProvider, object> implementationFactory);
+  public static ServiceDescriptor Scoped(Type service, Type implementationType);
+  public static ServiceDescriptor Scoped<TService>(Func<IServiceProvider, TService> implementationFactory) where TService : class;
+  public static ServiceDescriptor Scoped<TService, TImplementation>() where TService : class where TImplementation : class, TService;
+  public static ServiceDescriptor Scoped<TService, TImplementation>(Func<IServiceProvider, TImplementation> implementationFactory) where TService : class where TImplementation : class, TService;
+  public static ServiceDescriptor Singleton(Type serviceType, Func<IServiceProvider, object> implementationFactory);
+  public static ServiceDescriptor Singleton(Type serviceType, object implementationInstance);
+  public static ServiceDescriptor Singleton(Type service, Type implementationType);
+  public static ServiceDescriptor Singleton<TService>(Func<IServiceProvider, TService> implementationFactory) where TService : class;
+  public static ServiceDescriptor Singleton<TService>(TService implementationInstance) where TService : class;
+  public static ServiceDescriptor Singleton<TService, TImplementation>() where TService : class where TImplementation : class, TService;
+  public static ServiceDescriptor Singleton<TService, TImplementation>(Func<IServiceProvider, TImplementation> implementationFactory) where TService : class where TImplementation : class, TService;
+  public override string ToString();
+  public static ServiceDescriptor Transient(Type service, Func<IServiceProvider, object> implementationFactory);
+  public static ServiceDescriptor Transient(Type service, Type implementationType);
+  public static ServiceDescriptor Transient<TService>(Func<IServiceProvider, TService> implementationFactory) where TService : class;
+  public static ServiceDescriptor Transient<TService, TImplementation>() where TService : class where TImplementation : class, TService;
+  public static ServiceDescriptor Transient<TService, TImplementation>(Func<IServiceProvider, TImplementation> implementationFactory) where TService : class where TImplementation : class, TService;
+  public Func<IServiceProvider, object>? ImplementationFactory { get; }
+  public object? ImplementationInstance { get; }
+  public Type? ImplementationType { get; }
+  public bool IsKeyedService { get; }
+  public Func<IServiceProvider, object?, object>? KeyedImplementationFactory { get; }
+  public object? KeyedImplementationInstance { get; }
+  public Type? KeyedImplementationType { get; }
+  public ServiceLifetime Lifetime { get; }
+  public object? ServiceKey { get; }
+  public Type ServiceType { get; }
+}
+
+public class DmsDbContext : DbContext, IInfrastructure<IServiceProvider>, IDbContextDependencies, IDbSetCache, IDbContextPoolable, IResettableService, IDisposable, IAsyncDisposable
+{
+  public DbSet<User> Users { get; set; }
+  public DbSet<RefreshToken> RefreshTokens { get; set; }
+  public DbSet<RegistryType> RegistryTypes { get; set; }
+  public DbSet<DocumentKind> DocumentKinds { get; set; }
+  public DbSet<Department> Departments { get; set; }
+  public DbSet<RegistryNumberCounter> RegistryNumberCounters { get; set; }
+  public DbSet<RegistryEntry> RegistryEntries { get; set; }
+  public DbSet<RegistryDocument> RegistryDocuments { get; set; }
+  public DbSet<Task> Tasks { get; set; }
+  public DbSet<EntryEvent> EntryEvents { get; set; }
+  protected override void OnModelCreating(ModelBuilder modelBuilder);
+  public override int SaveChanges();
+  public override Task<int> SaveChangesAsync([CancellationToken cancellationToken = default]);
+  private void SetAuditProperties();
+}
+
+public class DbContext : IInfrastructure<IServiceProvider>, IDbContextDependencies, IDbSetCache, IDbContextPoolable, IResettableService, IDisposable, IAsyncDisposable
+{
+  public virtual DbSet<TEntity> Set<TEntity>() where TEntity : class;
+  public virtual DbSet<TEntity> Set<TEntity>(string name) where TEntity : class;
+  protected internal virtual void OnConfiguring(DbContextOptionsBuilder optionsBuilder);
+  protected internal virtual void ConfigureConventions(ModelConfigurationBuilder configurationBuilder);
+  protected internal virtual void OnModelCreating(ModelBuilder modelBuilder);
+  public virtual int SaveChanges();
+  public virtual int SaveChanges(bool acceptAllChangesOnSuccess);
+  public virtual Task<int> SaveChangesAsync([CancellationToken cancellationToken = default]);
+  public virtual Task<int> SaveChangesAsync(bool acceptAllChangesOnSuccess, [CancellationToken cancellationToken = default]);
+  public virtual void Dispose();
+  public virtual ValueTask DisposeAsync();
+  public virtual EntityEntry<TEntity> Entry<TEntity>(TEntity entity) where TEntity : class;
+  public virtual EntityEntry Entry(object entity);
+  public virtual EntityEntry<TEntity> Add<TEntity>(TEntity entity) where TEntity : class;
+  public virtual ValueTask<EntityEntry<TEntity>> AddAsync<TEntity>(TEntity entity, [CancellationToken cancellationToken = default]) where TEntity : class;
+  public virtual EntityEntry<TEntity> Attach<TEntity>(TEntity entity) where TEntity : class;
+  public virtual EntityEntry<TEntity> Update<TEntity>(TEntity entity) where TEntity : class;
+  public virtual EntityEntry<TEntity> Remove<TEntity>(TEntity entity) where TEntity : class;
+  public virtual EntityEntry Add(object entity);
+  public virtual ValueTask<EntityEntry> AddAsync(object entity, [CancellationToken cancellationToken = default]);
+  public virtual EntityEntry Attach(object entity);
+  public virtual EntityEntry Update(object entity);
+  public virtual EntityEntry Remove(object entity);
+  public virtual void AddRange(params object[] entities);
+  public virtual Task AddRangeAsync(params object[] entities);
+  public virtual void AttachRange(params object[] entities);
+  public virtual void UpdateRange(params object[] entities);
+  public virtual void RemoveRange(params object[] entities);
+  public virtual void AddRange(IEnumerable<object> entities);
+  public virtual Task AddRangeAsync(IEnumerable<object> entities, [CancellationToken cancellationToken = default]);
+  public virtual void AttachRange(IEnumerable<object> entities);
+  public virtual void UpdateRange(IEnumerable<object> entities);
+  public virtual void RemoveRange(IEnumerable<object> entities);
+  public virtual object? Find(Type entityType, params object?[]? keyValues);
+  public virtual ValueTask<object?> FindAsync(Type entityType, params object?[]? keyValues);
+  public virtual ValueTask<object?> FindAsync(Type entityType, object?[]? keyValues, CancellationToken cancellationToken);
+  public virtual TEntity? Find<TEntity>(params object?[]? keyValues) where TEntity : class;
+  public virtual ValueTask<TEntity?> FindAsync<TEntity>(params object?[]? keyValues) where TEntity : class;
+  public virtual ValueTask<TEntity?> FindAsync<TEntity>(object?[]? keyValues, CancellationToken cancellationToken) where TEntity : class;
+  public virtual IQueryable<TResult> FromExpression<TResult>(Expression<Func<IQueryable<TResult>>> expression);
+  public override string? ToString();
+  public override bool Equals(object? obj);
+  public override int GetHashCode();
+  public virtual DatabaseFacade Database { get; }
+  public virtual ChangeTracker ChangeTracker { get; }
+  public virtual IModel Model { get; }
+  public virtual DbContextId ContextId { get; }
+  public event EventHandler<SavingChangesEventArgs>? SavingChanges;
+  public event EventHandler<SavedChangesEventArgs>? SavedChanges;
+  public event EventHandler<SaveChangesFailedEventArgs>? SaveChangesFailed;
+}
+
+public interface IInfrastructure<T>
+{
+  T Instance { get; }
+}
+
+public interface IDbContextDependencies
+{
+  IDbSetSource SetSource { get; }
+  IEntityFinderFactory EntityFinderFactory { get; }
+  IAsyncQueryProvider QueryProvider { get; }
+  IStateManager StateManager { get; }
+  IChangeDetector ChangeDetector { get; }
+  IEntityGraphAttacher EntityGraphAttacher { get; }
+  IExceptionDetector ExceptionDetector { get; }
+  IDiagnosticsLogger<DbLoggerCategory.Update> UpdateLogger { get; }
+  IDiagnosticsLogger<DbLoggerCategory.Infrastructure> InfrastructureLogger { get; }
+}
+
+public interface IDbSetCache
+{
+  object GetOrAddSet(IDbSetSource source, Type type);
+  object GetOrAddSet(IDbSetSource source, string entityTypeName, Type type);
+  IEnumerable<object> GetSets();
+}
+
+public interface IDbContextPoolable : IResettableService, IDisposable, IAsyncDisposable
+{
+  void SetLease(DbContextLease lease);
+  Task SetLeaseAsync(DbContextLease lease, CancellationToken cancellationToken);
+  void ClearLease();
+  void SnapshotConfiguration();
+}
+
+public interface IResettableService
+{
+  void ResetState();
+  Task ResetStateAsync([CancellationToken cancellationToken = default]);
+}
+
+public class DbContextOptionsBuilder : IDbContextOptionsBuilderInfrastructure
+{
+  public virtual DbContextOptionsBuilder UseModel(IModel model);
+  public virtual DbContextOptionsBuilder UseLoggerFactory(ILoggerFactory? loggerFactory);
+  public virtual DbContextOptionsBuilder LogTo(Action<string> action, [LogLevel minimumLevel = Debug], [DbContextLoggerOptions? options = null]);
+  public virtual DbContextOptionsBuilder LogTo(Action<string> action, IEnumerable<EventId> events, [LogLevel minimumLevel = Debug], [DbContextLoggerOptions? options = null]);
+  public virtual DbContextOptionsBuilder LogTo(Action<string> action, IEnumerable<string> categories, [LogLevel minimumLevel = Debug], [DbContextLoggerOptions? options = null]);
+  public virtual DbContextOptionsBuilder LogTo(Action<string> action, Func<EventId, LogLevel, bool> filter, [DbContextLoggerOptions? options = null]);
+  public virtual DbContextOptionsBuilder LogTo(Func<EventId, LogLevel, bool> filter, Action<EventData> logger);
+  public virtual DbContextOptionsBuilder EnableThreadSafetyChecks([bool enableChecks = true]);
+  public virtual DbContextOptionsBuilder EnableDetailedErrors([bool detailedErrorsEnabled = true]);
+  public virtual DbContextOptionsBuilder UseMemoryCache(IMemoryCache? memoryCache);
+  public virtual DbContextOptionsBuilder UseInternalServiceProvider(IServiceProvider? serviceProvider);
+  public virtual DbContextOptionsBuilder UseApplicationServiceProvider(IServiceProvider? serviceProvider);
+  public virtual DbContextOptionsBuilder UseRootApplicationServiceProvider(IServiceProvider? rootServiceProvider);
+  public virtual DbContextOptionsBuilder UseRootApplicationServiceProvider();
+  public virtual DbContextOptionsBuilder EnableSensitiveDataLogging([bool sensitiveDataLoggingEnabled = true]);
+  public virtual DbContextOptionsBuilder EnableServiceProviderCaching([bool cacheServiceProvider = true]);
+  public virtual DbContextOptionsBuilder UseQueryTrackingBehavior(QueryTrackingBehavior queryTrackingBehavior);
+  public virtual DbContextOptionsBuilder ConfigureWarnings(Action<WarningsConfigurationBuilder> warningsConfigurationBuilderAction);
+  public virtual DbContextOptionsBuilder ReplaceService<TService, TImplementation>() where TImplementation : TService;
+  public virtual DbContextOptionsBuilder ReplaceService<TService, TCurrentImplementation, TNewImplementation>() where TCurrentImplementation : TService where TNewImplementation : TService;
+  public virtual DbContextOptionsBuilder AddInterceptors(IEnumerable<IInterceptor> interceptors);
+  public virtual DbContextOptionsBuilder AddInterceptors(params IInterceptor[] interceptors);
+  public virtual DbContextOptionsBuilder ConfigureLoggingCacheTime(TimeSpan timeSpan);
+  public virtual DbContextOptionsBuilder UseSeeding(Action<DbContext, bool> seed);
+  public virtual DbContextOptionsBuilder UseAsyncSeeding(Func<DbContext, bool, CancellationToken, Task> seedAsync);
+  public override string? ToString();
+  public override bool Equals(object? obj);
+  public override int GetHashCode();
+  public virtual DbContextOptions Options { get; }
+  public virtual bool IsConfigured { get; }
+}
+
+public interface IDbContextOptionsBuilderInfrastructure
+{
+  void AddOrUpdateExtension<TExtension>(TExtension extension) where TExtension : class, IDbContextOptionsExtension;
+}
+
+public sealed class ConfigurationManager : IConfigurationManager, IConfigurationBuilder, IConfigurationRoot, IConfiguration, IDisposable
+{
+  public void Dispose();
+  public IEnumerable<IConfigurationSection> GetChildren();
+  public IConfigurationSection GetSection(string key);
+  public IList<IConfigurationSource> Sources { get; }
+}
+
+public interface IConfiguration
+{
+  IEnumerable<IConfigurationSection> GetChildren();
+  IChangeToken GetReloadToken();
+  IConfigurationSection GetSection(string key);
+}
+
+public interface IConfigurationBuilder
+{
+  IConfigurationBuilder Add(IConfigurationSource source);
+  IConfigurationRoot Build();
+  IDictionary<string, object> Properties { get; }
+  IList<IConfigurationSource> Sources { get; }
+}
+
+public interface IConfigurationManager : IConfiguration, IConfigurationBuilder
+{
+}
+
+public interface IConfigurationRoot : IConfiguration
+{
+  void Reload();
+  IEnumerable<IConfigurationProvider> Providers { get; }
+}
+```

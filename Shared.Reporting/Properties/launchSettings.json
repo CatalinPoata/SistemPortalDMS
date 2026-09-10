@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "Shared.Reporting": {
+      "commandName": "Project"
+    },
+    "Container (Dockerfile)": {
+      "commandName": "Docker"
+    }
+  }
+}

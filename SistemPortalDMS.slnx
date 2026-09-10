@@ -1,0 +1,7 @@
+<Solution>
+  <Project Path="API-DMS-TESTS/API-DMS-TESTS.csproj" />
+  <Project Path="API-DMS/API-DMS.csproj" />
+  <Project Path="API-PORTAL-TESTS/API-PORTAL-TESTS.csproj" Id="e1b31d0a-803c-4f11-8fe8-1f67fe905dfc" />
+  <Project Path="API-PORTAL/API-PORTAL.csproj" />
+  <Project Path="Shared.Reporting/Shared.Reporting.csproj" Id="c0b9e021-1702-476a-b845-68894577f448" />
+</Solution>

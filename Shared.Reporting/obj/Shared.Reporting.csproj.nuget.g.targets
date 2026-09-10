@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<Project ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ImportGroup Condition=" '$(ExcludeRestorePackageImports)' != 'true' ">
+    <Import Project="$(NuGetPackageRoot)system.text.json\6.0.10\buildTransitive\netcoreapp3.1\System.Text.Json.targets" Condition="Exists('$(NuGetPackageRoot)system.text.json\6.0.10\buildTransitive\netcoreapp3.1\System.Text.Json.targets')" />
+    <Import Project="$(NuGetPackageRoot)microsoft.visualstudio.azure.containers.tools.targets\1.24.1-preview.1\build\Microsoft.VisualStudio.Azure.Containers.Tools.Targets.targets" Condition="Exists('$(NuGetPackageRoot)microsoft.visualstudio.azure.containers.tools.targets\1.24.1-preview.1\build\Microsoft.VisualStudio.Azure.Containers.Tools.Targets.targets')" />
+    <Import Project="$(NuGetPackageRoot)microsoft.playwright\1.62.0\buildTransitive\Microsoft.Playwright.targets" Condition="Exists('$(NuGetPackageRoot)microsoft.playwright\1.62.0\buildTransitive\Microsoft.Playwright.targets')" />
+  </ImportGroup>
+</Project>

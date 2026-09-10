@@ -1,0 +1,206 @@
+services:
+  proxy:
+    image: caddy:2.11.4-alpine
+    restart: unless-stopped
+
+    ports:
+      - "127.0.0.1:80:80"
+      - "127.0.0.1:443:443"
+
+    volumes:
+      - ./proxy/Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+      - caddy_config:/config
+
+    depends_on:
+      - api-portal
+      - api-dms
+      - app-pub
+      - app-bo
+      - app-dms
+
+    networks:
+      proxy-network:
+        ipv4_address: 172.30.50.2
+
+    
+  mailhog:
+    image: mailhog/mailhog:v1.0.1
+    container_name: mailhog
+    ports:
+      - "1025:1025"
+      - "8025:8025"
+    networks:
+      - app-network
+
+  postgres:
+    image: postgres:16-alpine
+    container_name: dms_portal_postgres
+    environment:
+      POSTGRES_DB: portal_dms_db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      DMS_DB_PASSWORD: ${DMS_DB_PASSWORD}
+      PORTAL_DB_PASSWORD: ${PORTAL_DB_PASSWORD}
+
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d portal_dms_db"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+      start_period: 10s
+
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - app-network
+  
+  
+  api-portal:
+    build:
+      context: .
+      dockerfile: API-PORTAL/Dockerfile
+    container_name: api_portal
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ConnectionStrings__PortalDatabase: "Host=postgres;Port=5432;Database=portal_dms_db;Username=portal_app;Password=${PORTAL_DB_PASSWORD};SearchPath=portal"
+      Jwt__SigningKey: ${PORTAL_JWT_SIGNING_KEY}
+      Integration__Dms__BaseUrl: "http://api-dms:8080/"
+      Integration__Dms__SharedSecret: ${PORTAL_DMS_SHARED_SECRET}
+      ASPNETCORE_URLS: "http://+:8080;https://+:8081"
+      ASPNETCORE_HTTPS_PORT: "7116"
+      ASPNETCORE_Kestrel__Certificates__Default__Path: "/https/aspnetapp.pfx"
+      ASPNETCORE_Kestrel__Certificates__Default__Password: "${HTTPS_CERT_PASSWORD}"
+      Email__SmtpHost: "mailhog"
+      Email__SmtpPort: "1025"
+      Email__UseSsl: "false"
+      Email__FromAddress: "no-reply@portal.local"
+      Email__FromName: "Portal"
+      Email__PublicAppBaseUrl: "https://portal.localhost"
+      ReverseProxy__KnownProxy: "172.30.50.2"
+      FileStorage__RootPath: "/app/uploads"
+      FileDownload__SigningKey: ${PORTAL_FILE_DOWNLOAD_SIGNING_KEY}
+      DataProtection__KeysPath: "/app/keys"
+      
+    ports:
+      - "5001:8080"
+      - "7116:8081"
+
+    volumes:
+      - portal_file_storage:/app/uploads
+      - portal_data_protection:/app/keys
+      - ./certs/aspnetapp.pfx:/https/aspnetapp.pfx:ro
+    
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - app-network
+      - proxy-network
+
+  api-dms:
+    init: true
+    shm_size: "256mb"
+    build:
+      context: .
+      dockerfile: API-DMS/Dockerfile
+    container_name: api_dms
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ConnectionStrings__DmsDatabase: "Host=postgres;Port=5432;Database=portal_dms_db;Username=dms_app;Password=${DMS_DB_PASSWORD};SearchPath=dms, public"
+      Jwt__SigningKey: ${DMS_JWT_SIGNING_KEY}
+      Integration__Portal__BaseUrl: "http://api-portal:8080/"
+      Integration__Portal__SharedSecret: ${PORTAL_DMS_SHARED_SECRET}
+      Integration__Portal__ActorEmail: "admin@example.com"
+      FileDownload__SigningKey: ${DMS_FILE_DOWNLOAD_SIGNING_KEY}
+      FileDownload__PublicBaseUrl: "https://dms.localhost"
+      DataProtection__KeysPath: "/app/keys"
+      ASPNETCORE_URLS: "http://+:8080;https://+:8081"
+      ASPNETCORE_HTTPS_PORT: "7106"
+      ASPNETCORE_Kestrel__Certificates__Default__Path: "/https/aspnetapp.pfx"
+      ASPNETCORE_Kestrel__Certificates__Default__Password: "${HTTPS_CERT_PASSWORD}"
+      Email__SmtpHost: "mailhog"
+      Email__SmtpPort: "1025"
+      Email__UseSsl: "false"
+      Email__FromAddress: "no-reply@dms.local"
+      Email__FromName: "DMS"
+      Email__PublicAppBaseUrl: "https://dms.localhost"
+      ReverseProxy__KnownProxy: "172.30.50.2"
+
+
+    ports:
+      - "5002:8080"
+      - "7106:8081"
+    volumes:
+      - file_storage:/app/uploads
+      - dms_data_protection:/app/keys
+      - ./certs/aspnetapp.pfx:/https/aspnetapp.pfx:ro
+
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - app-network
+      - proxy-network
+
+  app-pub:
+    build:
+      context: ./app-pub
+      dockerfile: Dockerfile
+    container_name: app_pub
+    ports:
+      - "3000:3000"
+    depends_on:
+      - api-portal
+    networks:
+      - app-network
+      - proxy-network
+
+  app-bo:
+    build:
+      context: ./app-bo
+      dockerfile: Dockerfile
+    container_name: app_bo
+    ports:
+      - "3001:3000"
+    depends_on:
+      - api-portal
+    networks:
+      - app-network
+      - proxy-network
+
+  app-dms:
+    build:
+      context: ./app-dms
+      dockerfile: Dockerfile
+    container_name: app_dms
+    ports:
+      - "3002:3000"
+    depends_on:
+      - api-dms
+    networks:
+      - app-network
+      - proxy-network
+volumes:
+  postgres_data:
+  file_storage:
+  portal_file_storage:
+  portal_data_protection:
+  dms_data_protection:
+  caddy_data:
+  caddy_config:
+
+networks:
+  app-network:
+    driver: bridge
+
+  proxy-network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.30.50.0/24
+          ip_range: 172.30.50.128/25
+          gateway: 172.30.50.1

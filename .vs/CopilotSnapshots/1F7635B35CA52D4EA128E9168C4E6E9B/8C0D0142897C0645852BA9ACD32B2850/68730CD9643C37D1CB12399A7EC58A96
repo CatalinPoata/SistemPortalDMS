@@ -1,0 +1,45 @@
+﻿using Microsoft.EntityFrameworkCore;
+using API_PORTAL.Data;
+
+
+var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddControllers();
+
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
+
+var connectionString =
+    builder.Configuration.GetConnectionString("PortalDatabase")
+    ?? throw new InvalidOperationException(
+        "Connection string 'PortalDatabase' was not found.");
+
+var dataSource = PortalDataSourceFactory.Create(connectionString);
+
+builder.Services.AddSingleton(dataSource);
+
+builder.Services.AddDbContextPool<PortalDbContext>(options =>
+{
+    options.UseNpgsql(
+        dataSource,
+        npgsqlOptions =>
+        {
+            npgsqlOptions.MigrationsHistoryTable(
+                "__EFMigrationsHistory",
+                "portal");
+        });
+});
+
+var app = builder.Build();
+
+if (app.Environment.IsDevelopment())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI();
+}
+
+app.UseHttpsRedirection();
+app.UseAuthorization();
+app.MapControllers();
+
+app.Run();
