@@ -1,0 +1,12 @@
+POSTGRES_PASSWORD=admin
+DMS_DB_PASSWORD=dms_app
+PORTAL_DB_PASSWORD=portal_app
+DMS_JWT_SIGNING_KEY=caxNW77EkWAqIMGXaBO/6Cz6mzt9CLvYwBfu3NgBBM2Xe5VDjlHJEd3p8+oGRcEzJOimjVicWzj9hFoJjDBiDg==
+PORTAL_JWT_SIGNING_KEY=jCdpNOa3XtrhHcNdaXcuNA3HAVpPkVXSjPYWC/+wrc+WJseLbNazDYRcA39h6dZvn8X3kwVtj+DF5WDz5PxH8Q==
+PORTAL_FILE_DOWNLOAD_SIGNING_KEY=kEPp3AMYGVLMpuEiQzzs+qTUou8LHPg/QTnobnTa6Tby7riY3EVHVO/sa/Gn90kb/g58ms2ornDOvZNXw3YhXQ==
+DMS_FILE_DOWNLOAD_SIGNING_KEY=5D134HbvV8pjA2nN7zf4XHqhwxQc3a8HQef8ltQ/V+9HQkkG3nqASKX6sIovLAqRi/rzKWpgpcZvCc3TEJ4enw==
+HTTPS_CERT_PASSWORD=certpassword
+DMS_TEST_CONNECTION ="Host=localhost;Port=5432;Database=portal_dms_test;Username=dms_app;Password=dms_app;SearchPath=dms, public"
+NEXT_PUBLIC_PORTAL_API_URL=https://localhost:7116
+PORTAL_TEST_CONNECTION ="Host=localhost;Port=5432;Database=portal_portal_test;Username=portal_app;Password=portal_app;SearchPath=portal, public"
+PORTAL_DMS_SHARED_SECRET=TmhJx8R8gaXuxL5pgescw1veyBR0Alt4C9U0sO6CeoaPhymrHkgvbGGYDYxMcKxu
