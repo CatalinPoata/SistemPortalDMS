@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\febr2\\source\\repos\\SistemPortalDMS\\Shared.Reporting\\Shared.Reporting.csproj": {}
+    "C:\\Users\\andrei.poata\\Documents\\GitHub\\SistemPortalDMS\\Shared.Reporting\\Shared.Reporting.csproj": {}
   },
   "projects": {
-    "C:\\Users\\febr2\\source\\repos\\SistemPortalDMS\\Shared.Reporting\\Shared.Reporting.csproj": {
+    "C:\\Users\\andrei.poata\\Documents\\GitHub\\SistemPortalDMS\\Shared.Reporting\\Shared.Reporting.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\febr2\\source\\repos\\SistemPortalDMS\\Shared.Reporting\\Shared.Reporting.csproj",
+        "projectUniqueName": "C:\\Users\\andrei.poata\\Documents\\GitHub\\SistemPortalDMS\\Shared.Reporting\\Shared.Reporting.csproj",
         "projectName": "Shared.Reporting",
-        "projectPath": "C:\\Users\\febr2\\source\\repos\\SistemPortalDMS\\Shared.Reporting\\Shared.Reporting.csproj",
-        "packagesPath": "C:\\Users\\febr2\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\febr2\\source\\repos\\SistemPortalDMS\\Shared.Reporting\\obj\\",
+        "projectPath": "C:\\Users\\andrei.poata\\Documents\\GitHub\\SistemPortalDMS\\Shared.Reporting\\Shared.Reporting.csproj",
+        "packagesPath": "C:\\Users\\andrei.poata\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\andrei.poata\\Documents\\GitHub\\SistemPortalDMS\\Shared.Reporting\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\febr2\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\andrei.poata\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
